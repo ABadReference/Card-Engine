@@ -14,4 +14,4 @@ Poker:
     - start work on the rest of the win conditions
 
 ## Future:
-Actually make the long waited poker game
+Actually make the long awaited poker game
