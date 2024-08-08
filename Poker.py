@@ -1,4 +1,5 @@
 from cards.deck import *
+from winconditions.poker import *
 
 # deals hands for players
 def deal_hand(deck, num_cards=2):
@@ -16,7 +17,6 @@ def flop(deck):
         card = deck.pop_card()
         table.append(card)
     return table
-
 
 # second and third deal to the table, The Turn and Up the River respectively
 def the_turn(deck):
@@ -53,65 +53,6 @@ def check_win(cards):
     if pair == 2:
         print("Player has a pair")
         return True
-
-def check_straight(cards):
-    faces_count = [0] * 13
-    count = 0
-    for card in cards:
-        faces_count[card.face.value-1] += 1
-
-    for face in faces_count:
-        if face == 0:
-            count = 0
-        else:
-            count += 1
-            if count >= 5:
-                return True
-
-    return False
-
-def check_pair(cards):
-
-    faces_count = [0] * 13
-    count = 0
-    face = Face
-    hand = []
-    for card in cards:
-        faces_count[card.face.value-1] += 1
-        if faces_count[card.face.value-1] > count:
-            face = card.face
-    total_pairs = max(faces_count)
-
-    if total_pairs >= 2:
-        for card in cards:
-            if card.face == face:
-                hand.append(card)
-                cards.remove(card)
-        i = 0
-        while i < len(cards):
-            hand.append(cards[i])
-            if len(hand) == 5:
-                return hand, total_pairs if total_pairs >= 2 else 0
-
-    return cards, False
-
-# checking for flushes
-def check_flush(cards):
-
-    cards = sort_face(cards)
-    cards = sort_suit(cards)
-
-    hand = []
-    suit = cards[0].suit
-
-    for card in cards:
-        if card.suit == suit:
-            hand.append(card)
-        if len(hand) == 5:
-            return hand, True
-
-    return cards, False
-
 
 if __name__ == "__main__":
     print("Creating a standard 52-card deck...")

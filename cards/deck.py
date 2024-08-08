@@ -75,6 +75,7 @@ def sort_suit(cards):
 
     return sorted_hand
 
+# sorts cards by rank
 def sort_face(cards):
     sorted_hand = []
     hand_size = len(cards)
