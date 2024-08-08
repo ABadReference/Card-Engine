@@ -1,4 +1,4 @@
-from cards.deck import *
+from cards.deck52 import *
 
 # this file is for checking win conditions
 
