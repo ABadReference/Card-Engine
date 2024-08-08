@@ -41,13 +41,15 @@ class Deck:
                 card = Card(face, suit)
                 self.deck.append(card)
         random.shuffle(self.deck)
-        # random.shuffle(self.deck)
 
+    # pops a card from the array and returns it
     def pop_card(self):
         return self.deck.pop()
 
 # function to sort hands by suit, possibly over engineered
 def sort_suit(cards):
+
+    #  orginizes cards into respected suits
     hearts, diamonds, spades, clubs = [], [], [], []
     for card in cards:
         match card.suit:
@@ -63,9 +65,12 @@ def sort_suit(cards):
             case Suit.DIAMONDS:
                 diamonds.append(card)
 
+    # adds the suits the suits array
     suits = [hearts, diamonds, spades, clubs]
     sorted_hand = []
 
+    # while suits is not empty, finds the largest list and append first to the
+    # sorted_hand array. Remove max_suit list once appended
     while suits:
         max_suit = max(suits, key=len)
 
@@ -78,9 +83,10 @@ def sort_suit(cards):
 # sorts cards by rank
 def sort_face(cards):
     sorted_hand = []
-    hand_size = len(cards)
 
-    for i in range(hand_size):
+    # while cards are not empty. find the highest ranked card,
+    # append to sorted_hand, and remove from cards
+    while cards:
         max_card = max(cards, key=lambda x: x.face.value)
         sorted_hand.append(max_card)
         cards.remove(max_card)

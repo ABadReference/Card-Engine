@@ -26,6 +26,8 @@ def the_turn(deck):
 # dedicated function for checking win conditions
 # TODO:
     # have the winning 5 card hand be returned along with the win condition
+    # revamp check_straight function
+    # add functions for full house/two of a kind, royal flush
 def check_win(cards):
 
     cards, flush = check_flush(cards)

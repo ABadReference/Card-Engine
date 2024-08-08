@@ -25,8 +25,6 @@ def check_pair(cards):
     # sorts cards by rank
     cards = sort_face(cards)
 
-    # print(f"\nCards should be sorted:\n{cards}")
-
     # has an array size of 13 to easily count the ammount of pairs
     faces_count = [0] * 13
 
@@ -46,7 +44,6 @@ def check_pair(cards):
         if faces_count[card.face.value-1] > count:
             face = card.face
             count = faces_count[card.face.value-1]
-            print(f"\nCount: {count}\n")
 
     # if count is less then 2, returns false
     if count >= 2:
@@ -55,14 +52,12 @@ def check_pair(cards):
         for card in cards:
             if card.face == face:
                 hand.append(card)
-                # cards.remove(card)
-        i = 0
-        while i < len(cards):
+
+        # adds the remaning cards with the highest rank
+        for i in range(len(cards)):
             if face != cards[i].face:
                 hand.append(cards[i])
             if len(hand) == 5:
-                print(hand)
-                print(f"\nCount: {count}\n")
                 return hand, count
             i += 1
 
