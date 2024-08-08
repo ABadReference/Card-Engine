@@ -1,4 +1,4 @@
-from cards.deck import *
+from cards.deck52 import *
 from winconditions.poker import *
 
 # deals hands for players
