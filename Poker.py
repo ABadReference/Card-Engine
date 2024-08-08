@@ -30,7 +30,7 @@ def check_win(cards):
 
     cards, flush = check_flush(cards)
 
-    pair = check_pair(cards)
+    cards, pair = check_pair(cards)
 
     straight = check_straight(cards)
 
@@ -71,13 +71,29 @@ def check_straight(cards):
     return False
 
 def check_pair(cards):
+
     faces_count = [0] * 13
+    count = 0
+    face = Face
+    hand = []
     for card in cards:
         faces_count[card.face.value-1] += 1
+        if faces_count[card.face.value-1] > count:
+            face = card.face
     total_pairs = max(faces_count)
-    # print(total_pairs)
 
-    return total_pairs if total_pairs >= 2 else 0
+    if total_pairs >= 2:
+        for card in cards:
+            if card.face == face:
+                hand.append(card)
+                cards.remove(card)
+        i = 0
+        while i < len(cards):
+            hand.append(cards[i])
+            if len(hand) == 5:
+                return hand, total_pairs if total_pairs >= 2 else 0
+
+    return cards, False
 
 # checking for flushes
 def check_flush(cards):
