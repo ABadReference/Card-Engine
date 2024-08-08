@@ -1,5 +1,5 @@
 # Card Engine
-Creating a simple foundation for creating card games
+Creating a simple foundation for card games
 
 ## In progress:
 Poker:
