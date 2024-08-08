@@ -27,12 +27,8 @@ def the_turn(deck):
 # TODO:
     # fix this for the future
 def check_win(cards):
-    # cards = sort_suit(cards)
-    # print("Sorted by suit:")
-    # cards = sort_face(cards)
-    # print("\n\nSorted by face:")
-    print(cards)
-    hand, flush = check_flush(cards)
+
+    cards, flush = check_flush(cards)
 
     pair = check_pair(cards)
 
@@ -79,6 +75,7 @@ def check_pair(cards):
     for card in cards:
         faces_count[card.face.value-1] += 1
     total_pairs = max(faces_count)
+    # print(total_pairs)
 
     return total_pairs if total_pairs >= 2 else 0
 
@@ -87,20 +84,17 @@ def check_flush(cards):
 
     cards = sort_face(cards)
     cards = sort_suit(cards)
-    print(f"Cards should be sorted by suit:\n\n{cards}")
 
     hand = []
-
     suit = cards[0].suit
 
     for card in cards:
         if card.suit == suit:
             hand.append(card)
         if len(hand) == 5:
-            print(hand)
             return hand, True
 
-    return None, False
+    return cards, False
 
 
 if __name__ == "__main__":
@@ -130,4 +124,4 @@ if __name__ == "__main__":
     print(table)
 
     player1 = check_win(hand1 + table)
-    # player2 = check_win(hand2 + table)
+    player2 = check_win(hand2 + table)
