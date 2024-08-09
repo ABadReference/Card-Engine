@@ -30,11 +30,16 @@ def the_turn(deck):
     # add functions for full house/two of a kind, royal flush
 def check_win(cards):
 
+
     cards, flush = check_flush(cards)
+
+    cards, straight = check_straight(cards)
 
     cards, pair = check_pair(cards)
 
-    straight = check_straight(cards)
+    if pair == 4:
+        print("Player has four of a kind")
+        return True
 
     if straight:
         print("Player has a straight")
@@ -42,10 +47,6 @@ def check_win(cards):
 
     if flush:
         print("Player has a flush")
-        return True
-
-    if pair == 4:
-        print("Player has four of a kind")
         return True
 
     if pair == 3:
@@ -76,8 +77,8 @@ if __name__ == "__main__":
 
     table.append(the_turn(deck))
 
-    # table = [Card(Face.NINE, Suit.CLUBS), Card(Face.THREE, Suit.CLUBS), Card(Face.FOUR,
-    #         Suit.CLUBS), Card(Face.TEN, Suit.CLUBS), Card(Face.SEVEN, Suit.CLUBS)]
+    # table = [Card(Face.NINE, Suit.HEARTS), Card(Face.EIGHT, Suit.DIAMONDS), Card(Face.SIX,
+    #         Suit.CLUBS), Card(Face.TEN, Suit.SPADES), Card(Face.SEVEN, Suit.CLUBS)]
 
     print("\nThe cards after the river:")
     print(table)

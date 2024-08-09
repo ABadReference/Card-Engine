@@ -4,20 +4,32 @@ from cards.deck52 import *
 
 # function for checking straights
 def check_straight(cards):
-    faces_count = [0] * 13
-    count = 0
-    for card in cards:
-        faces_count[card.face.value-1] += 1
 
-    for face in faces_count:
-        if face == 0:
-            count = 0
-        else:
-            count += 1
-            if count >= 5:
-                return True
+    cards = sort_face(cards)
+    hand = []
 
-    return False
+    i = 0
+    while i < len(cards):
+
+        # Once the desired hand size is reached, returns hand and True
+        if len(hand) == 5:
+            return hand, True
+
+        # checks if the card face are identicall
+        start = cards[i].face
+        if i < len(cards) - 1 and start == cards[i+1].face:
+            i += 1
+            continue
+
+        # resets the deck if the values do not match
+        if i < len(cards) - 1 and start.value - 1 != cards[i+1].face.value:
+            hand = []
+
+        hand.append(cards[i])
+
+        i += 1
+
+    return cards, False
 
 # functions for checking pairs
 def check_pair(cards):
