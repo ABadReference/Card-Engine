@@ -105,15 +105,25 @@ def check_flush(cards):
 
     # sorts cards by rank than suit
     cards = sort_face(cards)
+    # when sorting by suit, it returns the the suit
+    # with the most cards
     cards = sort_suit(cards)
 
+    # returning hand
     hand = []
+    # keeps track of suit
     suit = cards[0].suit
 
-    for card in cards:
-        if card.suit == suit:
-            hand.append(card)
+    for i in range(len(cards)):
+        # returns false once card lenth - i is less than 5
+        if cards[i].suit != suit and len(cards) - i < 5:
+           return cards, False
+        # card gets appened to hand if suit matches
+        if cards[i].suit == suit:
+            hand.append(cards[i])
+        # returns true once lenth of hand is 5
         if len(hand) == 5:
+            # print(f"flush hand: {hand}")
             return hand, True
 
     return cards, False
@@ -132,15 +142,17 @@ def check_fh(cards):
         hand.append(card)
         # breaks once 3 of a kind is added
         if len(hand) == 3:
+            print("Hand after break: ", hand)
             break
 
     # skips the first 3 cards
-    i = 3
+    i = len(hand)
     # keeps track of the rank too see if there are any matches
     face = cards[i].face
-
+    print(f"current hand {hand}\ncurrent face: {face}\n")
     # searches the list for a two of a kind
     while i < len(cards) - 1:
+        # print(f"index {i} of {cards[i]}")
         if cards[i].face == face:
             count += 1
         else:
@@ -148,6 +160,7 @@ def check_fh(cards):
             count = 1
             # changes the face to new card
             face = cards[i].face
+            # print(f"face change: {cards[i].face}")
         # breaks once two of a kind is found
         if count == 2:
             break
@@ -155,10 +168,12 @@ def check_fh(cards):
 
     # adds the two of a kind to hand and returns it
     for card in cards:
-        if card.face == face:
+        if card.face == face and face != hand[0].face:
+            # print(f"Card added: {card}")
             hand.append(card)
         # returns hand and True once hand has 5 cards
         if len(hand) == 5:
+            # print(f"Full House hand: {hand}")
             return hand, True
 
     return cards, False
