@@ -5,28 +5,27 @@ from cards.deck52 import *
 # function for checking straights
 def check_straight(cards):
 
-    # sorts the hand
+    # sorts the hand by rank
     cards = sort_face(cards)
     hand = []
 
     i = 0
     while i < len(cards):
 
-        # Once the desired hand size is reached, returns hand and True
-        if len(hand) == 5:
-            return hand, True
-
-        # checks if the card face are identicall
-        start = cards[i].face
-        if i < len(cards) - 1 and start == cards[i+1].face:
+        # # checks if the card face are identicall
+        # start = cards[i].face
+        if i < len(cards) - 1 and cards[i].face == cards[i+1].face:
             i += 1
             continue
 
-        # resets the deck if the values do not match
-        if i < len(cards) - 1 and start.value - 1 != cards[i+1].face.value:
-            hand = []
+        if i < len(cards) - 1 and cards[i].face.value == cards[i+1].face.value + 1:
+            hand.append(cards[i])
+            # Once the desired hand size is reached, returns hand and True
+            if len(hand) == 5:
+                return hand, True
 
-        hand.append(cards[i])
+        else:
+            hand = []
 
         i += 1
 
@@ -67,15 +66,13 @@ def check_pair(cards):
                 hand.append(card)
 
         # adds the remaning cards with the highest rank
-        for i in range(len(cards)):
-            if face != cards[i].face:
-                hand.append(cards[i])
+        for card in cards:
+            if card not in hand:
+                hand.append(card)
 
-            # returns hand once lenth is met
+            # returns hand once length is met
             if len(hand) == 5:
                 return hand, count
-
-            i += 1
 
     # if count is not 4 and greater than 1, returns all 7 cards
     elif count > 1:
@@ -84,19 +81,17 @@ def check_pair(cards):
             if card.face == face:
                 hand.append(card)
 
-            # breaks once the lenth of hand is equal to the count
+            # breaks once the length of hand is equal to the count
             if len(hand) == count:
                 break
 
         # adds the remaning cards with the highest rank
-        for i in range(len(cards)):
-            if face != cards[i].face:
-                hand.append(cards[i])
+        for card in cards:
+            if card not in hand:
+                hand.append(card)
 
             if len(hand) == len(cards):
                 return hand, count
-
-            i += 1
 
     return cards, 0
 
@@ -115,65 +110,72 @@ def check_flush(cards):
     suit = cards[0].suit
 
     for i in range(len(cards)):
-        # returns false once card lenth - i is less than 5
+        # returns false once card length - i is less than 5
         if cards[i].suit != suit and len(cards) - i < 5:
            return cards, False
         # card gets appened to hand if suit matches
         if cards[i].suit == suit:
             hand.append(cards[i])
-        # returns true once lenth of hand is 5
+        # returns true once length of hand is 5
         if len(hand) == 5:
-            # print(f"flush hand: {hand}")
             return hand, True
 
     return cards, False
 
 def check_fh(cards):
 
-    # face is made to keep track of what ranks were used
-    face = Face
     # we are returning hand
     hand = []
     # keeps track of pairs
     count = 0
 
-    # adds pairs to the preorginized list
+    # adds pairs from the preorginized list to hand
     for card in cards:
         hand.append(card)
         # breaks once 3 of a kind is added
         if len(hand) == 3:
-            print("Hand after break: ", hand)
             break
 
     # skips the first 3 cards
     i = len(hand)
-    # keeps track of the rank too see if there are any matches
-    face = cards[i].face
-    print(f"current hand {hand}\ncurrent face: {face}\n")
-    # searches the list for a two of a kind
-    while i < len(cards) - 1:
-        # print(f"index {i} of {cards[i]}")
-        if cards[i].face == face:
-            count += 1
-        else:
-            # resets count to 1 if face mismatch
-            count = 1
-            # changes the face to new card
-            face = cards[i].face
-            # print(f"face change: {cards[i].face}")
-        # breaks once two of a kind is found
-        if count == 2:
-            break
+
+    while i < len(cards):
+        if cards[i] in hand:
+            continue
+        # if there is a match appends both cards
+        if i < len(cards) - 1 and cards[i].face == cards[i+1].face:
+            hand.append(cards[i].face)
+            hand.append(cards[i+1].face)
+            return hand, True
         i += 1
 
-    # adds the two of a kind to hand and returns it
-    for card in cards:
-        if card.face == face and face != hand[0].face:
-            # print(f"Card added: {card}")
-            hand.append(card)
-        # returns hand and True once hand has 5 cards
-        if len(hand) == 5:
-            # print(f"Full House hand: {hand}")
-            return hand, True
+    return cards, False
+
+def check_two_pair(cards):
+
+    # returning hand
+    hand = []
+
+    # sort cards by rank searching
+    cards = sort_face(cards)
+
+    i = 0
+
+    # loops through each card and searches for pairs
+    while i < len(cards):
+        # if there is a match appends both cards and increments by two
+        if i < len(cards) - 1 and cards[i].face == cards[i+1].face:
+            hand.append(cards[i].face)
+            hand.append(cards[i+1].face)
+            i += 1
+        i += 1
+
+    # if hand is not length of 4, we do not have a two pair
+    if len(hand) == 4:
+        for card in cards:
+            # appends the highest ranked card that is not in hand
+            if card not in hand:
+                hand.append(card)
+                return hand, True
 
     return cards, False

@@ -25,7 +25,7 @@ def the_turn(deck):
 
 # dedicated function for checking win conditions
 # TODO:
-    # fix bugs with flush and full house
+    # fix bugs with straight
     # add functions two of a kind, royal flush
 def check_win(cards):
 
@@ -33,23 +33,23 @@ def check_win(cards):
 
     print("\nCARDS BEFORE CHECKS: ")
     # cards = sort_face(cards)
-    for card in cards: print(card)
+    # for card in cards: print(card)
 
     cards, pair = check_pair(cards)
     # cards = sort_face(cards)
-    print("\nCARDS AFTER PAIR: ")
-    for card in cards: print(card)
+    # print("\nCARDS AFTER PAIR: ")
+    # for card in cards: print(card)
 
     if pair == 4:
-        print("Player has four of a kind")
-        for card in cards: print(card)
+        # print("Player has four of a kind")
+        # for card in cards: print(card)
         return True
 
     if pair == 3:
         cards, fullHouse = check_fh(cards)
         # cards = sort_face(cards)
-        print("\nCARDS AFTER FULL HOUSE: ")
-        for card in cards: print(card)
+        # print("\nCARDS AFTER FULL HOUSE: ")
+        # for card in cards: print(card)
 
     if fullHouse:
         print("Player has a Full House")
@@ -68,21 +68,26 @@ def check_win(cards):
 
     cards, flush = check_flush(cards)
     # cards = sort_face(cards)
-    print("\nCARDS AFTER FLUSH: ")
-    for card in cards: print(card)
+    # print("\nCARDS AFTER FLUSH: ")
+    # for card in cards: print(card)
 
     if flush:
-        print("Player has a flush")
-        for card in cards: print(card)
+        # print("Player has a flush")
+        # for card in cards: print(card)
         return True
 
     if pair == 3:
         print("Player has a three of a kind")
         # cards = sort_face(cards)
-        for card in cards: print(card)
+        # for card in cards: print(card)
         return True
 
     if pair == 2:
+        cards, twoPair = check_two_pair(cards)
+        if twoPair == True:
+            print("Player has two pair")
+            return True
+
         print("Player has a pair")
         return True
 
