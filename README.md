@@ -8,13 +8,13 @@ Considering that I can make any kind of deck, any card game is possible once the
 ## In progress:
 Poker:
     
-- Add the remaining win conditions
-- implement pygame
-- chips/cash calculations
+- Finalize win conditions 
 - iron out the remaining bugs
 - optimize search
 
 ## Future:
 
+- implement pygame
+- chips/cash calculations
 - Make graphics and release a demo for "The Worst Card Game"
 - black jack
