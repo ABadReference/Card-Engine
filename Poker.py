@@ -2,20 +2,26 @@ from cards.deck52 import *
 from winconditions.poker import *
 
 # deals hands for players
-def deal_hand(deck, num_cards=2):
+def deal_hand(deck):
     hand = []
-    for i in range(num_cards):
+    i = 0
+    num_cards = 2
+    while i < num_cards:
         card = deck.pop_card()
         hand.append(card)
+        i += 1
     return hand
 
 # first iteration of showing cards aka, The Flop
 def flop(deck):
     table = []
     deck.pop_card()
-    for i in range(3):
+    i = 0
+    flop = 3
+    while i < flop:
         card = deck.pop_card()
         table.append(card)
+        i += 1
     return table
 
 # second and third deal to the table, The Turn and Up the River respectively
@@ -31,7 +37,7 @@ def check_win(cards):
 
     fullHouse = False
 
-    print("\nCARDS BEFORE CHECKS: ")
+#   print("\nCARDS BEFORE CHECKS: ")
     # cards = sort_face(cards)
     # for card in cards: print(card)
 
@@ -112,8 +118,8 @@ if __name__ == "__main__":
 
     table.append(the_turn(deck))
 
-    # table = [Card(Face.TEN, Suit.HEARTS), Card(Face.NINE, Suit.DIAMONDS), Card(Face.NINE,
-    #         Suit.CLUBS), Card(Face.TEN, Suit.SPADES), Card(Face.TEN, Suit.CLUBS)]
+#   table = [Card(Face.TWO, Suit.HEARTS), Card(Face.FOUR, Suit.DIAMONDS), Card(Face.FIVE,
+#             Suit.CLUBS), Card(Face.ACE, Suit.SPADES), Card(Face.THREE, Suit.CLUBS)]
 
     print("\nThe cards after the river:")
     print(table)

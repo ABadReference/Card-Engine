@@ -9,25 +9,32 @@ def check_straight(cards):
     cards = sort_face(cards)
     hand = []
 
-    i = 0
-    while i < len(cards):
+    for card in cards:
 
-        # # checks if the card face are identicall
-        # start = cards[i].face
-        if i < len(cards) - 1 and cards[i].face == cards[i+1].face:
-            i += 1
-            continue
 
-        if i < len(cards) - 1 and cards[i].face.value == cards[i+1].face.value + 1:
-            hand.append(cards[i])
-            # Once the desired hand size is reached, returns hand and True
+        if hand == [] or hand[-1].face.value - card.face.value == 1:
+            hand.append(card)
             if len(hand) == 5:
                 return hand, True
 
+        elif hand[-1].face == card.face:
+            continue
+
         else:
             hand = []
+            hand.append(card)
 
-        i += 1
+    hand = []
+    lowAce = {Face.ACE, Face.TWO, Face.THREE, Face.FOUR, Face.FIVE}
+    # hard coded low Ace check
+    for card in cards:
+        if card.face in hand:
+            continue
+        if card.face in lowAce:
+            hand.append(card)
+            if len(hand) == 5:
+                return hand, True
+
 
     return cards, False
 
