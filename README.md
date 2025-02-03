@@ -7,7 +7,7 @@ Considering that I can make any kind of deck, any card game is possible once the
 
 ## Done:
 
-- Stright doesn't seem to have any more bugs with it
+- ~~Stright doesn't seem to have any more bugs with it~~ There are a few bugs regarding the low ace stright
 - Pairs and two pairs are functional
 - flush is working, but can be opitimzed
 - sorting by face and suit are working as intended, sort by suit can be optimized
@@ -16,7 +16,8 @@ Considering that I can make any kind of deck, any card game is possible once the
 ## In progress:
 Poker:
     
-- add stright flush and royal flush
+- royal flush
+- fix the low ace straight
 - optimize search
 - chips/cash calculations
 - add "weight" system for poker hand evaluation
